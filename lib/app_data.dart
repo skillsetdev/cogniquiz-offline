@@ -5,6 +5,8 @@
 //Later Task: moveCards() on page exit
 // add moveCardOverTheStack() by adding them to a separate list if their index exceeds the maxIndex (otherwise last card stay last) and them adding them on the loor adfre the putCardsBack()
 
+import 'dart:math';
+
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -335,7 +337,7 @@ class AppData extends ChangeNotifier {
 
   //spaced repetition logic ////////////////////////////////////////////////////////////////////////////////////////////////////
   int calculateNewPositionIndex(int currentIndex, SuperCard card, int maxIndex) {
-    int newPositionIndex = currentIndex + 3 + 3 * card.goodPresses - card.okPresses - 2 * card.badPresses;
+    int newPositionIndex = currentIndex + 3 + 3 * card.goodPresses + card.okPresses - 2 * card.badPresses;
     if (newPositionIndex < currentIndex + 3) {
       newPositionIndex = currentIndex + 3;
     }
@@ -343,6 +345,26 @@ class AppData extends ChangeNotifier {
       newPositionIndex = maxIndex;
     }
     return newPositionIndex;
+  }
+
+//this is for counting the next position of the card on the buttons
+  int calculateNextBadCardPosition(CardStack parentCardStack, int indexOfCardInPractice) {
+    // card, parentCardStack.cardsInPractice.length
+    SuperCard card = parentCardStack.cardsInPractice[indexOfCardInPractice];
+    int nextPositionIndex = 3 + 3 * card.goodPresses + card.okPresses - 2 * (card.badPresses + 1);
+    return max(nextPositionIndex, 3);
+  }
+
+  int calculateNextOkCardPosition(CardStack parentCardStack, int indexOfCardInPractice) {
+    SuperCard card = parentCardStack.cardsInPractice[indexOfCardInPractice];
+    int nextPositionIndex = 3 + 3 * card.goodPresses + (card.okPresses + 1) - 2 * card.badPresses;
+    return max(nextPositionIndex, 3);
+  }
+
+  int calculateNextGoodCardPosition(CardStack parentCardStack, int indexOfCardInPractice) {
+    SuperCard card = parentCardStack.cardsInPractice[indexOfCardInPractice];
+    int nextPositionIndex = 3 + 3 * (card.goodPresses + 1) + card.okPresses - 2 * card.badPresses;
+    return max(nextPositionIndex, 3);
   }
 
   void moveCard(CardStack parentCardStack, int indexOfCardInPractice) {

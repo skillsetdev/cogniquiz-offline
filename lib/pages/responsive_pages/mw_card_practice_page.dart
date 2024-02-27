@@ -379,12 +379,23 @@ class _CardPracticePageState extends State<CardPracticePage> with WidgetsBinding
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(12),
                                         )),
-                                    child: Center(
-                                        child: Icon(
-                                      Icons.sentiment_dissatisfied_rounded,
-                                      color: Colors.red,
-                                      size: 50,
-                                    )),
+                                    child: Column(children: [
+                                      Spacer(),
+                                      Icon(
+                                        Icons.sentiment_dissatisfied_rounded,
+                                        color: Colors.red,
+                                        size: 50,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Spacer(),
+                                          Text('in ${appData.calculateNextBadCardPosition(pageCardStack, indexOfCurrentCard)} card'),
+                                          Text(appData.calculateNextBadCardPosition(pageCardStack, indexOfCurrentCard) != 1 ? 's' : ''),
+                                          Spacer(),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                    ]),
                                   ),
                                 ),
                                 GestureDetector(
@@ -404,12 +415,25 @@ class _CardPracticePageState extends State<CardPracticePage> with WidgetsBinding
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(12),
                                         )),
-                                    child: Center(
-                                        child: Icon(
-                                      Icons.sentiment_neutral_rounded,
-                                      color: Colors.yellow,
-                                      size: 50,
-                                    )),
+                                    child: Column(
+                                      children: [
+                                        Spacer(),
+                                        Icon(
+                                          Icons.sentiment_neutral_rounded,
+                                          color: Colors.yellow,
+                                          size: 50,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Spacer(),
+                                            Text('in ${appData.calculateNextOkCardPosition(pageCardStack, indexOfCurrentCard)} card'),
+                                            Text(appData.calculateNextOkCardPosition(pageCardStack, indexOfCurrentCard) != 1 ? 's' : ''),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 GestureDetector(
@@ -429,12 +453,25 @@ class _CardPracticePageState extends State<CardPracticePage> with WidgetsBinding
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(12),
                                         )),
-                                    child: Center(
-                                        child: Icon(
-                                      Icons.sentiment_satisfied_rounded,
-                                      color: Colors.green,
-                                      size: 50,
-                                    )),
+                                    child: Column(
+                                      children: [
+                                        Spacer(),
+                                        Icon(
+                                          Icons.sentiment_satisfied_rounded,
+                                          color: Colors.green,
+                                          size: 50,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Spacer(),
+                                            Text('in ${appData.calculateNextGoodCardPosition(pageCardStack, indexOfCurrentCard)} card'),
+                                            Text(appData.calculateNextGoodCardPosition(pageCardStack, indexOfCurrentCard) != 1 ? 's' : ''),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ])),
